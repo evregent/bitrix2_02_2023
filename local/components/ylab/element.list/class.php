@@ -62,7 +62,7 @@ class ElementListComponent extends CBitrixComponent
             $arFilter,
             false,
             false,
-            ['ID', 'IBLOCK_ID', 'NAME', 'PROPERTY_PRICE', 'PROPERTY_PERCENT', 'PROPERTY_STATUS']
+            ['ID', 'IBLOCK_ID', 'NAME', 'PROPERTY_PRICE', 'PROPERTY_PERCENT', 'PROPERTY_STATUS', 'WEIGHT', 'NOMENCLATURE', 'ORDER']
         );
 
         while ($element = $elements->GetNext()) {
@@ -75,6 +75,9 @@ class ElementListComponent extends CBitrixComponent
                 'PRICE' => $element['PROPERTY_PRICE_VALUE'],
                 'PERCENT' => $element['PROPERTY_PERCENT_VALUE'],
                 'TOTAL' => $total,
+                'WEIGHT' =>$element['PROPERTY_WEIGHT_VALUE'],
+                'NOMENCLATURE' =>$element['PROPERTY_NOMENCLATURE_VALUE'],
+                'ORDER' =>$element['ORDER'],
                 'STATUS' => $element['PROPERTY_STATUS_VALUE'],
             ];
         }

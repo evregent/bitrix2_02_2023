@@ -12,6 +12,8 @@ use Bitrix\Main\Localization\Loc;
             <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.PRICE') ?> <?= $arItem['PRICE'] ?></p>
             <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.PERCENT') ?> <?= $arItem['PERCENT'] ?></p>
             <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.TOTAL') ?> <?= $arItem['TOTAL'] ?></p>
+            <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.WEIGHT') ?> <?= $arItem['WEIGHT'] ?></p>
+            <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.NOMENCLATURE') ?> <?= $arItem['NOMENCLATURE'] ?></p>
             <p><?= Loc::getMessage('YLAB.ELEMENT.LIST.STATUS') ?> <?= $arItem['STATUS'] ?></p>
         </div>
         <hr>
