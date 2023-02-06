@@ -8,6 +8,7 @@ use \CBitrixComponent;
 use \CIBlockElement;
 use \Exception;
 use Ylab\Helpers\HlBlockHelpers;
+use Ylab\Helpers\IBlockHelpers;
 
 /**
  * Class ElementListComponent
@@ -32,7 +33,7 @@ class ElementListComponent extends CBitrixComponent
     {
         Loader::includeModule('iblock');
 
-        $this->idIBlock = 4;
+        $this->idIBlock = IBlockHelpers::getIdIBlock('positions');
 
         if ($this->getTemplateName() == $this->hlTemplateName) {
             $this->arResult['ITEMS'] = $this->getDataFromHl();
@@ -62,12 +63,16 @@ class ElementListComponent extends CBitrixComponent
             $arFilter,
             false,
             false,
-            ['ID', 'IBLOCK_ID', 'NAME', 'PROPERTY_PRICE', 'PROPERTY_PERCENT', 'PROPERTY_STATUS']
+            ['ID', 'IBLOCK_ID', 'NAME', 'PROPERTY_PRICE', 'PROPERTY_PERCENT', 'PROPERTY_STATUS',
+                'PROPERTY_WEIGHT', 'PROPERTY_NOMENCLATURE']
         );
 
         while ($element = $elements->GetNext()) {
-
             $total = $this->calcTotal($element);
+
+            $orderXmlIds = $this->getOrdersIds($element['ID']);
+
+            $orders = $this->getOrders($orderXmlIds);
 
             $result[] = [
                 'ID' => $element['ID'],
@@ -76,6 +81,9 @@ class ElementListComponent extends CBitrixComponent
                 'PERCENT' => $element['PROPERTY_PERCENT_VALUE'],
                 'TOTAL' => $total,
                 'STATUS' => $element['PROPERTY_STATUS_VALUE'],
+                'WEIGHT' => $element['PROPERTY_WEIGHT_VALUE'],
+                'NOMENCLATURE' => $element['PROPERTY_NOMENCLATURE_VALUE'],
+                'ORDER' => $orders,
             ];
         }
 
@@ -96,6 +104,42 @@ class ElementListComponent extends CBitrixComponent
         }
 
         return $result;
+    }
+
+    /**
+     * получаем индексы заказов по ID позиции
+     * @param string $elementId
+     * @return array
+     */
+    private function getOrdersIds($elementId): array
+    {
+        $props = CIBlockElement::GetList(
+            [], ['IBLOCK_ID' => $this->idIBlock, 'ID' => $elementId], false, false, []
+        );
+
+        if ($obEl = $props->GetNextElement()) {
+            $orderXmlIds = $obEl->GetProperties();
+        }
+        $orderXmlIds = $orderXmlIds['ORDER']['VALUE'];
+
+        return $orderXmlIds;
+    }
+
+    /**
+     * получаем массив значений заказов по массиву индексов
+     * @param array $arrIds
+     * @return array
+     */
+    private function getOrders($arrIds): array
+    {
+        $entityClass = HlBlockHelpers::getHlEntityClass('Orders');
+        $ordersList = $entityClass::getList([
+            'select' => ['*'],
+            'filter' => ['UF_XML_ID' => $arrIds],
+        ]);
+        $orders = $ordersList->fetchAll();
+
+        return $orders;
     }
 
     /**

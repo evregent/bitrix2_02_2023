@@ -205,6 +205,103 @@ class IB_POSITIONS20230202170901 extends Version
                 ],
         ]);
 
+        $helper->Iblock()->saveProperty($iblockId, [
+            'NAME' => 'Вес',
+            'ACTIVE' => 'Y',
+            'SORT' => '500',
+            'CODE' => 'WEIGHT',
+            'DEFAULT_VALUE' => '',
+            'PROPERTY_TYPE' => 'N',
+            'ROW_COUNT' => '1',
+            'COL_COUNT' => '30',
+            'LIST_TYPE' => 'L',
+            'MULTIPLE' => 'N',
+            'XML_ID' => null,
+            'FILE_TYPE' => '',
+            'MULTIPLE_CNT' => '5',
+            'LINK_IBLOCK_ID' => '0',
+            'WITH_DESCRIPTION' => 'N',
+            'SEARCHABLE' => 'N',
+            'FILTRABLE' => 'N',
+            'IS_REQUIRED' => 'N',
+            'VERSION' => '1',
+            'USER_TYPE' => null,
+            'USER_TYPE_SETTINGS' => null,
+            'HINT' => '',
+        ]);
+
+        $helper->Iblock()->saveProperty($iblockId, [
+            'NAME' => '№ по номенклатуре',
+            'ACTIVE' => 'Y',
+            'SORT' => '500',
+            'CODE' => 'NOMENCLATURE',
+            'DEFAULT_VALUE' => '',
+            'PROPERTY_TYPE' => 'S',
+            'ROW_COUNT' => '1',
+            'COL_COUNT' => '30',
+            'LIST_TYPE' => 'L',
+            'MULTIPLE' => 'N',
+            'XML_ID' => null,
+            'FILE_TYPE' => '',
+            'MULTIPLE_CNT' => '5',
+            'LINK_IBLOCK_ID' => '0',
+            'WITH_DESCRIPTION' => 'N',
+            'SEARCHABLE' => 'N',
+            'FILTRABLE' => 'N',
+            'IS_REQUIRED' => 'N',
+            'VERSION' => '1',
+            'USER_TYPE' => null,
+            'USER_TYPE_SETTINGS' => null,
+            'HINT' => '',
+        ]);
+
+        $helper->Iblock()->saveProperty($iblockId, array(
+            'NAME' => 'Заказы',
+            'ACTIVE' => 'Y',
+            'SORT' => '500',
+            'CODE' => 'ORDER',
+            'DEFAULT_VALUE' => '',
+            'PROPERTY_TYPE' => 'S',
+            'ROW_COUNT' => '1',
+            'COL_COUNT' => '30',
+            'LIST_TYPE' => 'L',
+            'MULTIPLE' => 'Y',
+            'XML_ID' => NULL,
+            'FILE_TYPE' => '',
+            'MULTIPLE_CNT' => '5',
+            'LINK_IBLOCK_ID' => '0',
+            'WITH_DESCRIPTION' => 'N',
+            'SEARCHABLE' => 'N',
+            'FILTRABLE' => 'N',
+            'IS_REQUIRED' => 'N',
+            'VERSION' => '1',
+            'USER_TYPE' => 'directory',
+            'USER_TYPE_SETTINGS' =>
+                array(
+                    'size' => 1,
+                    'width' => 0,
+                    'group' => 'N',
+                    'multiple' => 'N',
+                    'TABLE_NAME' => 'orders',
+                ),
+            'HINT' => '',
+            'FEATURES' =>
+                array(
+                    0 =>
+                        array(
+                            'MODULE_ID' => 'iblock',
+                            'FEATURE_ID' => 'DETAIL_PAGE_SHOW',
+                            'IS_ENABLED' => 'N',
+                        ),
+                    1 =>
+                        array(
+                            'MODULE_ID' => 'iblock',
+                            'FEATURE_ID' => 'LIST_PAGE_SHOW',
+                            'IS_ENABLED' => 'N',
+                        ),
+                ),
+        ));
+
     }
 
     public function down()
